@@ -51,7 +51,7 @@ namespace PinApp
         #region Ricezione dei dati da graficare
 
         // METODO per la ricezione dei dati ottenuti
-        public void receive(double[] modacc, double[] modgyr, double[] theta, List<double[]> spostamento, int sensore)
+        public void Receive(double[] modacc, double[] modgyr, double[] theta, List<double[]> spostamento, int sensore)
         {
             switch (sensore)
             {
@@ -189,7 +189,7 @@ namespace PinApp
         }
 
         // METODO per i dati DR calcolati
-        public void receiveDR(List<double[]> spostamento)
+        public void ReceiveDR(List<double[]> spostamento)
         {
             double[] spostamentoX = new double[spostamento.Count];
             double[] spostamentoY = new double[spostamento.Count];
@@ -308,7 +308,7 @@ namespace PinApp
         #endregion Disegno dei grafici
 
         // METODO per la pulizia post-connessione di grafici e strutture
-        public void clearGraph()
+        public void ClearGraph()
         {
             #region Reset strutture d'appoggio
 

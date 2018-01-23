@@ -48,7 +48,7 @@ namespace PinApp
         }
 
         // GESTIONE BASE SERVER
-        public void launch()
+        public void Launch()
         {
             //Aspetto un secondo per permettere la sincronizzazione dei thread
             Thread.Sleep(1000);
@@ -70,7 +70,7 @@ namespace PinApp
                 Socket socket = listener.AcceptSocket();
 
                 //Pulisco e reinizializzo i grafici per rappresentare la nuova connessione
-                graph.clearGraph();
+                graph.ClearGraph();
 
                 mainForm.setGraph(mainForm.zedGraphControl0_0, mainForm.zedGraphControl1_0, mainForm.zedGraphControl2_0);
                 mainForm.setGraph(mainForm.zedGraphControl0_1, mainForm.zedGraphControl1_1, mainForm.zedGraphControl2_1);
@@ -80,7 +80,7 @@ namespace PinApp
                 mainForm.setDRGraph(mainForm.zedGraphControlDeadReckoning);
                 
                 //Gestisco la connessione
-                execute(socket);
+                Execute(socket);
 
                 //Chiudo la connessione e resetto oggetti e strutture di supporto
                 listener.Stop();
@@ -93,7 +93,7 @@ namespace PinApp
         }
 
         // GESTIONE SINGOLA CONNESSIONE
-        public void execute(Socket socket)
+        public void Execute(Socket socket)
         {
             try
             {
@@ -244,7 +244,7 @@ namespace PinApp
                     if (indiceFinestra == 500) // ho raccolto la finestra dei dati
                     {
                         mainForm.displayText("[" + ID + "] Finestra di dati raccolta, analisi avviata correttamente.\r");
-                        analysis analisi = new analysis(analize);
+                        analysis analisi = new analysis(Analize);
                         analisi.Invoke(sampwin, quaternioni, numSensori, ID, graph, help, startTime);
 
                         // i primi 250 campionamenti della prossima finestra sono gli ultimi 250 di quella corrente (vedi tema esame)
@@ -271,7 +271,7 @@ namespace PinApp
 
                 if (indiceFinestra != 500)
                 {
-                    analysis analisi = new analysis(analize);
+                    analysis analisi = new analysis(Analize);
                     double[,,] temp = new double[sampwin.GetLength(0), indiceFinestra, numSensori];
 
                     for (int i = 0; i < sampwin.GetLength(0); i++)
@@ -292,7 +292,7 @@ namespace PinApp
 
                 #region Operazioni al termine della connessione
 
-                refreshGraphDR refreshGraphDR = new refreshGraphDR(graph.receiveDR);
+                refreshGraphDR refreshGraphDR = new refreshGraphDR(graph.ReceiveDR);
                 refreshGraphDR.Invoke(help.DRpoints);
 
                 if (statoPostura[0] != "")
@@ -311,7 +311,7 @@ namespace PinApp
         }
 
         // GESTIONE ANALISI DELLA SINGOLA FINESTRA
-        private void analize(double[,,] sampwin, double[,,] quaternioni, int numSensori, string ID, Graph graph, Support help, DateTime startTime)
+        private void Analize(double[,,] sampwin, double[,,] quaternioni, int numSensori, string ID, Graph graph, Support help, DateTime startTime)
         {
             // Salvataggio campionamento su CSV
             saveData save = new saveData(help.saveData);
@@ -373,23 +373,23 @@ namespace PinApp
                 switch (s)
                 {
                     case 0:
-                        refreshGraph refreshGraph0 = new refreshGraph(graph.receive);
+                        refreshGraph refreshGraph0 = new refreshGraph(graph.Receive);
                         refreshGraph0.Invoke(modacc, modgyr, theta, help.DRpoints, s);
                         break;
                     case 1:
-                        refreshGraph refreshGraph1 = new refreshGraph(graph.receive);
+                        refreshGraph refreshGraph1 = new refreshGraph(graph.Receive);
                         refreshGraph1.Invoke(modacc, modgyr, theta, help.DRpoints, s);
                         break;
                     case 2:
-                        refreshGraph refreshGraph2 = new refreshGraph(graph.receive);
+                        refreshGraph refreshGraph2 = new refreshGraph(graph.Receive);
                         refreshGraph2.Invoke(modacc, modgyr, theta, help.DRpoints, s);
                         break;
                     case 3:
-                        refreshGraph refreshGraph3 = new refreshGraph(graph.receive);
+                        refreshGraph refreshGraph3 = new refreshGraph(graph.Receive);
                         refreshGraph3.Invoke(modacc, modgyr, theta, help.DRpoints, s);
                         break;
                     case 4:
-                        refreshGraph refreshGraph4 = new refreshGraph(graph.receive);
+                        refreshGraph refreshGraph4 = new refreshGraph(graph.Receive);
                         refreshGraph4.Invoke(modacc, modgyr, theta, help.DRpoints, s);
                         break;
                 }

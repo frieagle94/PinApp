@@ -18,7 +18,7 @@ namespace PinApp
             mainForm = new MainForm();
             Server server = new Server(mainForm);
 
-            Thread mainThread = new Thread(server.launch);
+            Thread mainThread = new Thread(server.Launch);
             mainThread.Start();
 
             Application.Run(mainForm);
